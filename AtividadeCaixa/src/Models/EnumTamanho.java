@@ -1,0 +1,9 @@
+package Models;
+
+public enum EnumTamanho {
+    PP,
+    P,
+    M,
+    G,
+    GG
+}
