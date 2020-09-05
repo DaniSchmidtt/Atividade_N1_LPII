@@ -163,10 +163,11 @@ public class ItemEstoque {
     }
 
     /**
-     * @param ValorMargem100 the ValorMargem100 to set
+     * @param ValorMargem100 the ValorMargem100 to set Valor da margem é calculado automaticamente valorpago*2
      */
     public void setValorMargem100(double ValorMargem100) {
-        this.ValorMargem100 = ValorMargem100;
+        
+        this.ValorMargem100 = ValorPagoCompra*2;
     }
 
     /**
