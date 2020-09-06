@@ -1,10 +1,23 @@
 package Models;
 
 public enum EnumCor {
-    Azul,
-    Amarelo,
-    Vermelho,
-    Rosa,
-    Roxo,
-    Verde
+
+    AZUL("azul"),
+    AMARELO("amarelo"),
+    VERMELHO("vermelho"),
+    ROSA("rosa"),
+    ROXO("roxo"),
+    VERDE("verde");
+
+    private String cor;
+
+    EnumCor(String cor)
+    {
+        this.cor = cor;
+    }
+
+    public String getCor()
+    {
+        return cor;
+    }
 }
