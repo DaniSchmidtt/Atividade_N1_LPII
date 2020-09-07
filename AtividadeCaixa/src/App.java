@@ -11,7 +11,7 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         ItemEstoque teste = new ItemEstoque();
-        teste.setCodigoDoItem(9);
+        teste.setCodigoDoItem(7);
         teste.setCaracteristicas("Caracter");
         teste.setCor(EnumCor.AZUL);
         Date date = new Date();
