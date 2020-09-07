@@ -123,7 +123,7 @@ public class App {
         db.insertjson(itens);
     }
 
-    public static void selectparametro(ConexaoDB db) {
+    public static void selectparametro(ConexaoDB db,ArrayList<ItemEstoque> itens) {
         while (true) {
             Scanner scan = new Scanner(System.in);
             System.out.println("Passe um codigo de item valido");
@@ -134,15 +134,16 @@ public class App {
                     break;
                 } else {
                     int Codigo = Integer.valueOf(scan.next());
-//                    db.selectjson(Codigo);
-                    System.out.println("Deseja alterar esse item?");
-                    System.out.println("1 - SIM");
-                    System.out.println("Qualquer outro numero - NAO");
+//                  db.selectjson(Codigo);
+                    System.out.println("1 - Deseja alterar esse item?");
+                    System.out.println("2- Deseja deletar esse item?");
+                    System.out.println("para sair digite qualquer outro numero");
                     scanerint = Integer.valueOf(scan.next());
                     if (scanerint == 1) {
-//                        db.deletejson(Codigo);
-                        novoitem(db);
-                    } else {
+                        db.deletejson(Codigo, itens);
+                    } else if(scanerint == 2) {
+                        db.updatejson(Codigo, itens);
+                    }else{
                         break;
                     }
                 }
@@ -177,7 +178,7 @@ public class App {
                         continue;
 //              case 2: metodo selectDB
                     case 3:
-                        selectparametro(db);
+                        selectparametro(db,itens);
                         continue;
                     case 4:
                         System.exit(0);

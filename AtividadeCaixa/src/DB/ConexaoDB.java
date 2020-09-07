@@ -60,20 +60,15 @@ public class ConexaoDB {
 
     }
 
-    public void updatejson(int ID) {
-        Gson gson = new Gson(); // conversor
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("saida.LPII"));
-            ItemEstoque item = gson.fromJson(br, ItemEstoque.class);
-            System.out.println("Sucesso ao salvar!");
-            System.out.println(item.toString());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
+    public void updatejson(int ID, ArrayList<ItemEstoque> item) {
+
+
+        
     }
 
-    public void deletejson(int ID) {
-        Gson gson = new Gson(); // conversor
+    public void deletejson(int ID,ArrayList<ItemEstoque> item) {
+
+
 
     }
 }
