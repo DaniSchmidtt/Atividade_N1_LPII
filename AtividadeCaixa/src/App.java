@@ -1,6 +1,12 @@
-package javaapplication5;
+//package javaapplication5;
+
 import java.util.Date;
 import java.util.Scanner;
+
+import DB.ConexaoDB;
+import Models.EnumCor;
+import Models.EnumTamanho;
+import Models.ItemEstoque;
 
 public class App {
 

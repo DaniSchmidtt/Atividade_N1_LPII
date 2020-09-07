@@ -18,10 +18,11 @@ public class ConexaoDB {
 
     public void insertjson(ItemEstoque item) {
 
+        List<ItemEstoque> itemestoque = this.selectjson();
         Gson gson = new Gson(); // conversor
-        String json = gson.toJson(item);
+        String json = gson.toJson(itemestoque);
         try {
-            FileWriter fileWriter = new FileWriter("saida.LPII", true);
+            FileWriter fileWriter = new FileWriter("saida.LPII", false);
             fileWriter.write(json + "\n");
             fileWriter.close();
             System.out.println("Sucesso ao salvar!");
@@ -32,7 +33,7 @@ public class ConexaoDB {
         // exportar
     }
 
-    public void selectjson() {
+    public List<ItemEstoque> selectjson() {
 
         try {
 
@@ -48,9 +49,11 @@ public class ConexaoDB {
                 System.out.println(itens.get(index).toString());
                 index++;
             }
+            return itens;
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            return null;
             // TODO: handle exception
         }
 
