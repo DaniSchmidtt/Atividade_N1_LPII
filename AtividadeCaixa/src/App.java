@@ -11,7 +11,7 @@ import Models.ItemEstoque;
 
 public class App {
 
-    public static void novoitem(ConexaoDB db, ArrayList<ItemEstoque> itens) 
+    public static void novoitem(ConexaoDB db, ArrayList<ItemEstoque> itens, int auxcod) 
     {
         ItemEstoque Item = new ItemEstoque();
         int cache = 0;
@@ -20,9 +20,7 @@ public class App {
             int scanerint;
             try {
                 if (cache == 0) {
-                    System.out.println("Digite o codigo do item:");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setCodigoDoItem(scanerint);
+                    Item.setCodigoDoItem(auxcod++);
                     cache++;
                 }
                 if (cache == 1) {
@@ -160,6 +158,7 @@ public class App {
         ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
         ConexaoDB db = new ConexaoDB();
         itens = db.selectjson();
+        Integer auxcod = itens.size();
 
         System.out.println("Bem vindo ao sistema.");
         System.out.println("---------------------");
@@ -174,7 +173,7 @@ public class App {
                 int scanerint = Integer.valueOf(scan.next());
                 switch (scanerint) {
                     case 1:
-                        novoitem(db, itens);
+                        novoitem(db, itens, auxcod);
                         continue;
 //              case 2: metodo selectDB
                     case 3:
