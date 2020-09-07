@@ -27,6 +27,7 @@ public class ItemEstoque {
      * @param CodigoDoItem the CodigoDoItem to set
      */
     public void setCodigoDoItem( int CodigoDoItem) {
+        
         this.CodigoDoItem = CodigoDoItem;
     }
 

@@ -1,5 +1,6 @@
 //package javaapplication5;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -10,7 +11,8 @@ import Models.ItemEstoque;
 
 public class App {
 
-    public static void novoitem(ConexaoDB db) throws InterruptedException {
+    public static void novoitem(ConexaoDB db, ArrayList<ItemEstoque> itens, int auxcod) 
+    {
         ItemEstoque Item = new ItemEstoque();
         int cache = 0;
         while (true) {
@@ -18,9 +20,7 @@ public class App {
             int scanerint;
             try {
                 if (cache == 0) {
-                    System.out.println("Digite o codigo do item:");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setCodigoDoItem(scanerint);
+                    Item.setCodigoDoItem(auxcod++);
                     cache++;
                 }
                 if (cache == 1) {
@@ -119,10 +119,11 @@ public class App {
                 System.out.println(e.getMessage());
             }
         }
-        db.insertjson(Item);
+        itens.add(Item);
+        db.insertjson(itens);
     }
 
-    public static void selectparametro(ConexaoDB db) {
+    public static void selectparametro(ConexaoDB db,ArrayList<ItemEstoque> itens) {
         while (true) {
             Scanner scan = new Scanner(System.in);
             System.out.println("Passe um codigo de item valido");
@@ -133,15 +134,16 @@ public class App {
                     break;
                 } else {
                     int Codigo = Integer.valueOf(scan.next());
-//                    db.selectjson(Codigo);
-                    System.out.println("Deseja alterar esse item?");
-                    System.out.println("1 - SIM");
-                    System.out.println("Qualquer outro numero - NAO");
+//                  db.selectjson(Codigo);
+                    System.out.println("1 - Deseja alterar esse item?");
+                    System.out.println("2- Deseja deletar esse item?");
+                    System.out.println("para sair digite qualquer outro numero");
                     scanerint = Integer.valueOf(scan.next());
                     if (scanerint == 1) {
-//                        db.deletejson(Codigo);
-                        novoitem(db);
-                    } else {
+                        db.deletejson(Codigo, itens);
+                    } else if(scanerint == 2) {
+                        db.updatejson(Codigo, itens);
+                    }else{
                         break;
                     }
                 }
@@ -153,10 +155,15 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
+
+        ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
+        ConexaoDB db = new ConexaoDB();
+        itens = db.selectjson();
+        Integer auxcod = itens.size();
+
         System.out.println("Bem vindo ao sistema.");
         System.out.println("---------------------");
         while (true) {
-            ConexaoDB db = new ConexaoDB();
             Scanner scan = new Scanner(System.in);
             System.out.println("Opções:");
             System.out.println("1 - Cadastrar novo Item no estoque");
@@ -167,11 +174,11 @@ public class App {
                 int scanerint = Integer.valueOf(scan.next());
                 switch (scanerint) {
                     case 1:
-                        novoitem(db);
+                        novoitem(db, itens, auxcod);
                         continue;
 //              case 2: metodo selectDB
                     case 3:
-                        selectparametro(db);
+                        selectparametro(db,itens);
                         continue;
                     case 4:
                         System.exit(0);
