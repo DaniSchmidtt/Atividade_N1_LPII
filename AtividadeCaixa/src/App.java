@@ -1,5 +1,6 @@
 //package javaapplication5;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -10,7 +11,8 @@ import Models.ItemEstoque;
 
 public class App {
 
-    public static void novoitem(ConexaoDB db) throws InterruptedException {
+    public static void novoitem(ConexaoDB db, ArrayList<ItemEstoque> itens) 
+    {
         ItemEstoque Item = new ItemEstoque();
         int cache = 0;
         while (true) {
@@ -119,7 +121,8 @@ public class App {
                 System.out.println(e.getMessage());
             }
         }
-        db.insertjson(Item);
+        itens.add(Item);
+        db.insertjson(itens);
     }
 
     public static void selectparametro(ConexaoDB db) {
@@ -153,10 +156,14 @@ public class App {
     }
 
     public static void main(String[] args) throws Exception {
+
+        ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
+        ConexaoDB db = new ConexaoDB();
+        itens = db.selectjson();
+
         System.out.println("Bem vindo ao sistema.");
         System.out.println("---------------------");
         while (true) {
-            ConexaoDB db = new ConexaoDB();
             Scanner scan = new Scanner(System.in);
             System.out.println("Opções:");
             System.out.println("1 - Cadastrar novo Item no estoque");
@@ -167,7 +174,7 @@ public class App {
                 int scanerint = Integer.valueOf(scan.next());
                 switch (scanerint) {
                     case 1:
-                        novoitem(db);
+                        novoitem(db, itens);
                         continue;
 //              case 2: metodo selectDB
                     case 3:

@@ -16,14 +16,13 @@ import Models.ItemEstoque;
 
 public class ConexaoDB {
 
-    public void insertjson(ItemEstoque item) {
+    public void insertjson(ArrayList<ItemEstoque> item) {
 
-        List<ItemEstoque> itemestoque = this.selectjson();
         Gson gson = new Gson(); // conversor
-        String json = gson.toJson(itemestoque);
+        String json = gson.toJson(item);
         try {
-            FileWriter fileWriter = new FileWriter("saida.LPII", false);
-            fileWriter.write(json + "\n");
+            FileWriter fileWriter = new FileWriter("saida.LPII");
+            fileWriter.write(json); 
             fileWriter.close();
             System.out.println("Sucesso ao salvar!");
             System.out.println(json);
@@ -33,12 +32,12 @@ public class ConexaoDB {
         // exportar
     }
 
-    public List<ItemEstoque> selectjson() {
+    public ArrayList<ItemEstoque> selectjson() {
 
         try {
 
             BufferedReader br = new BufferedReader(new FileReader("saida.LPII"));
-            List<ItemEstoque> itens = new ArrayList<ItemEstoque>();
+            ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
             Gson gson = new Gson();
             itens = gson.fromJson(br, new TypeToken<List<ItemEstoque>>() {}.getType());
             System.out.println("Sucesso");
@@ -53,7 +52,7 @@ public class ConexaoDB {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
-            return null;
+            return new ArrayList<ItemEstoque>();
             // TODO: handle exception
         }
 
