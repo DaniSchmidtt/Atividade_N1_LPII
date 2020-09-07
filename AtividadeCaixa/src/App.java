@@ -11,12 +11,12 @@ public class App {
     public static void main(String[] args) throws Exception {
         System.out.println("Hello, World!");
         ItemEstoque teste = new ItemEstoque();
-        teste.setCodigoDoItem(2);
-        teste.setCaracteristicas("Caracteristicas");
+        teste.setCodigoDoItem(9);
+        teste.setCaracteristicas("Caracter");
         teste.setCor(EnumCor.AZUL);
         Date date = new Date();
         teste.setDataDeEntrada(date);
-        teste.setLocalDaCompra("LocalDaCompra");
+        teste.setLocalDaCompra("Local");
         teste.setMarca("Marca");
         teste.setPrecoSugerido(25);
         teste.setTamanho(EnumTamanho.PP);
@@ -25,6 +25,7 @@ public class App {
         teste.setValorPagoCompra(475);
 
         ConexaoDB db = new ConexaoDB();
+        db.insertjson(teste);
         db.selectjson();
     }
 }

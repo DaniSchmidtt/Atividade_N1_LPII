@@ -1,50 +1,52 @@
 package DB;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
 import Models.ItemEstoque;
 
 public class ConexaoDB {
 
-    public void insertjson(ItemEstoque item) {
+
+    public void insertjson(ItemEstoque item) {   
 
         Gson gson = new Gson(); // conversor
         String json = gson.toJson( item );
-        try {
-            FileWriter fileWriter = new FileWriter("saida.LPII");            
-            fileWriter.write(json);
+        try 
+        {
+            FileWriter fileWriter = new FileWriter("saida.LPII",true);
+            fileWriter.write(json + "\n");          
             fileWriter.close();
             System.out.println("Sucesso ao salvar!");            
             System.out.println(json);
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
+        } 
         // exportar
-        // Gson gson = new Gson(); // conversor
-        // String json = gson.toJson( objCliente );
-
     }
 
     public void selectjson() {
 
-        Gson gson = new Gson(); // conversor
-        
         try {
-            BufferedReader br = new BufferedReader(new FileReader("saida.LPII"));
-            ItemEstoque item = gson.fromJson(br, ItemEstoque.class);
-            br.close();
-            System.out.println("Sucesso ao Selecionar!");            
-            System.out.println(item.toString());
+
+        BufferedReader br = new BufferedReader(new FileReader("saida.LPII"));
+        List<ItemEstoque> itens = new ArrayList<ItemEstoque>();
+        Gson gson = new Gson();
+        itens = gson.fromJson(br, new TypeToken<List<ItemEstoque>>() {}.getType());
+
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            //TODO: handle exception
         }
+        
         // Importar dados do Json
-        // Gson gson = new Gson(); // conversor
-        // ItemEstoque objCliente = gson.fromJson(json, ItemEstoque.class);
 
     }
 
