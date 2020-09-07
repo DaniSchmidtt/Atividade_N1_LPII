@@ -15,6 +15,7 @@ public class ItemEstoque {
     private double ValorPagoCompra;
     private double ValorMargem100;
     private double PrecoSugerido;
+
     /**
      * @return the CodigoDoItem
      */
@@ -25,7 +26,7 @@ public class ItemEstoque {
     /**
      * @param CodigoDoItem the CodigoDoItem to set
      */
-    public void setCodigoDoItem(int CodigoDoItem) {
+    public void setCodigoDoItem( int CodigoDoItem) {
         this.CodigoDoItem = CodigoDoItem;
     }
 
@@ -39,7 +40,7 @@ public class ItemEstoque {
     /**
      * @param DataDeEntrada the DataDeEntrada to set
      */
-    public void setDataDeEntrada(Date DataDeEntrada) {
+    public void setDataDeEntrada( Date DataDeEntrada) {
         this.DataDeEntrada = DataDeEntrada;
     }
 
@@ -53,7 +54,7 @@ public class ItemEstoque {
     /**
      * @param LocalDaCompra the LocalDaCompra to set
      */
-    public void setLocalDaCompra(String LocalDaCompra) {
+    public void setLocalDaCompra( String LocalDaCompra) {
         this.LocalDaCompra = LocalDaCompra;
     }
 
@@ -67,7 +68,7 @@ public class ItemEstoque {
     /**
      * @param Tipo the Tipo to set
      */
-    public void setTipo(String Tipo) {
+    public void setTipo( String Tipo) {
         this.Tipo = Tipo;
     }
 
@@ -81,7 +82,7 @@ public class ItemEstoque {
     /**
      * @param Marca the Marca to set
      */
-    public void setMarca(String Marca) {
+    public void setMarca( String Marca) {
         this.Marca = Marca;
     }
 
@@ -95,7 +96,7 @@ public class ItemEstoque {
     /**
      * @param Caracteristicas the Caracteristicas to set
      */
-    public void setCaracteristicas(String Caracteristicas) {
+    public void setCaracteristicas( String Caracteristicas) {
         this.Caracteristicas = Caracteristicas;
     }
 
@@ -109,7 +110,7 @@ public class ItemEstoque {
     /**
      * @param Tamanho the Tamanho to set
      */
-    public void setTamanho(EnumTamanho Tamanho) {
+    public void setTamanho( EnumTamanho Tamanho) {
         this.Tamanho = Tamanho;
     }
 
@@ -123,7 +124,7 @@ public class ItemEstoque {
     /**
      * @param Cor the Cor to set
      */
-    public void setCor(EnumCor Cor) {
+    public void setCor( EnumCor Cor) {
         this.Cor = Cor;
     }
 
@@ -137,7 +138,7 @@ public class ItemEstoque {
     /**
      * @param ValorEtiquetaCompra the ValorEtiquetaCompra to set
      */
-    public void setValorEtiquetaCompra(double ValorEtiquetaCompra) {
+    public void setValorEtiquetaCompra( double ValorEtiquetaCompra) {
         this.ValorEtiquetaCompra = ValorEtiquetaCompra;
     }
 
@@ -151,8 +152,9 @@ public class ItemEstoque {
     /**
      * @param ValorPagoCompra the ValorPagoCompra to set
      */
-    public void setValorPagoCompra(double ValorPagoCompra) {
-        this.ValorPagoCompra = ValorPagoCompra;
+    public void setValorPagoCompra( double ValorPagoCompraSET) {
+        this.ValorPagoCompra = ValorPagoCompraSET;
+        setValorMargem100(ValorPagoCompraSET);
     }
 
     /**
@@ -163,11 +165,12 @@ public class ItemEstoque {
     }
 
     /**
-     * @param ValorMargem100 the ValorMargem100 to set Valor da margem é calculado automaticamente valorpago*2
+     * @param ValorMargem100 the ValorMargem100 to set Valor da margem é calculado
+     *                       automaticamente valorpago*2
      */
-    public void setValorMargem100(double ValorMargem100) {
-        
-        this.ValorMargem100 = ValorPagoCompra*2;
+    private void setValorMargem100( double ValorPagoCompraSET) {
+
+        this.ValorMargem100 = ValorPagoCompraSET * 2;
     }
 
     /**
@@ -180,7 +183,13 @@ public class ItemEstoque {
     /**
      * @param PrecoSugerido the PrecoSugerido to set
      */
-    public void setPrecoSugerido(double PrecoSugerido) {
+    public void setPrecoSugerido( double PrecoSugerido) {
         this.PrecoSugerido = PrecoSugerido;
+    }
+
+    @Override public String toString(){
+         String retorno = "";
+        return retorno.concat( String.valueOf(CodigoDoItem).concat(Tipo));
+
     }
 }
