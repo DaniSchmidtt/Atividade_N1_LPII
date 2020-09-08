@@ -189,7 +189,20 @@ public class ConexaoDB {
         }
     }
 
-    public void deletejson(int ID, ArrayList<ItemEstoque> item) {
-
+    public void deletejson(int ID, ArrayList<ItemEstoque> Itens) {
+        ItemEstoque aux = new ItemEstoque();
+        int existe = 0;
+        for (ItemEstoque itemEstoque : Itens) {
+            if (itemEstoque.getCodigoDoItem() == ID) {
+                aux = itemEstoque;
+                existe = 1;
+            }
+        }
+        if(existe == 1){
+            Itens.remove(aux);
+        }
+        else{
+            System.out.println("Código de item invalido!");
+        }
     }
 }
