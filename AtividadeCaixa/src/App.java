@@ -1,13 +1,19 @@
 //package javaapplication5;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
-
 import DB.ConexaoDB;
 import Models.EnumCor;
 import Models.EnumTamanho;
 import Models.ItemEstoque;
+import TableWAGU.Board;
+import TableWAGU.Table;
+import dnl.utils.text.table.TextTable;
 
 public class App {
 
@@ -153,7 +159,40 @@ public class App {
         }
 
     }
-
+    public static void DesenhaTabela(ArrayList<ItemEstoque> items){
+        try{
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");  
+        List<String> headersList = Arrays.asList("Código Do Item", "Data De Entrada", "Local Da Compra", "Tipo", "Marca", "Caracteristicas", "Tamanho", "Cor",
+         "Valor Etiqueta", "Valor Pago", "ValorMargem 100", "Preco Sugerido");
+         List<List<String>> rowsList = new ArrayList<List<String>>();
+         for(int i = 0; i < items.size(); i++){
+             var ListString = Arrays.asList(
+                 Integer.toString(items.get(i).getCodigoDoItem()),
+                  df.format(items.get(i).getDataDeEntrada()), 
+                  items.get(i).getLocalDaCompra(), 
+                  items.get(i).getTipo(), 
+                  items.get(i).getMarca(),
+                  items.get(i).getCaracteristicas(),
+                  items.get(i).getTamanho().toString(),
+                  items.get(i).getCor().toString(),
+                  Double.toString(items.get(i).getValorEtiquetaCompra()),
+                  Double.toString(items.get(i).getValorPagoCompra()),
+                  Double.toString(items.get(i).getValorMargem100()),
+                  Double.toString(items.get(i).getPrecoSugerido())
+                 );
+            rowsList.add(ListString);
+         }
+        
+        Board board = new Board(200);
+        
+        String tableString = board.setInitialBlock(new Table(board, 200, headersList, rowsList).tableToBlocks()).build().getPreview();
+        
+        System.out.println(tableString);
+        return;
+    } catch (Exception e) {
+        System.out.println(e.getMessage());
+    }
+    }
     public static void main(String[] args) throws Exception {
 
         ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
@@ -176,7 +215,9 @@ public class App {
                     case 1:
                         novoitem(db, itens, auxcod);
                         continue;
-//              case 2: metodo selectDB
+             case 2:
+             DesenhaTabela(itens);
+             continue;
                     case 3:
                         selectparametro(db,itens);
                         continue;

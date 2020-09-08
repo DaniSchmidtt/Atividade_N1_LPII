@@ -1,7 +1,12 @@
 {
-    "java.project.referencedLibraries": [
-        "lib/**/*.jar",
-        "AtividadeCaixa/lib/gson-2.3.1.jar",
-        "c:\\Users\\f0fp1078\\Downloads\\j-text-utils-0.3.3.jar"
-    ]
+    "java.project.referencedLibraries": {
+        "include": [
+            "lib/**/*.jar",
+            "AtividadeCaixa/lib/gson-2.3.1.jar",
+            "c:\\Users\\f0fp1078\\Downloads\\j-text-utils-0.3.4.jar"
+        ],
+        "exclude": [
+            "c:\\Users\\f0fp1078\\Downloads\\j-text-utils-0.3.3.jar"
+        ]
+    }
 }
