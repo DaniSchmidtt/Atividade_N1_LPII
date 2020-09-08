@@ -158,12 +158,16 @@ public class App {
         ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
         ConexaoDB db = new ConexaoDB();
         itens = db.selectjson();
-        Integer auxcod = itens.size() + 1;
-
+        Integer auxcod = 0;
         System.out.println("Bem vindo ao sistema.");
         System.out.println("---------------------");
         while (true) {
-            auxcod = itens.size() + 1;
+            for (ItemEstoque itemEstoque : itens) {
+                if(itemEstoque.getCodigoDoItem() > auxcod){
+                    auxcod = itemEstoque.getCodigoDoItem();
+                }
+            }
+            auxcod = auxcod + 1;
             Scanner scan = new Scanner(System.in);
             System.out.println("Opções:");
             System.out.println("1 - Cadastrar novo Item no estoque");
