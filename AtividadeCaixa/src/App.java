@@ -17,6 +17,7 @@ public class App {
         while (true) {
             Scanner scan = new Scanner(System.in);
             int scanerint;
+            double scanerdouble;
             try {
                 if (cache == 0) {
                     Item.setCodigoDoItem(auxcod);
@@ -64,8 +65,8 @@ public class App {
                 }
                 if (cache == 5) {
                     System.out.println("Digite o preço sugerido");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setPrecoSugerido(scanerint);
+                    scanerdouble = Double.valueOf(scan.next());
+                    Item.setPrecoSugerido(scanerdouble);
                     cache++;
                 }
                 if (cache == 6) {
@@ -99,14 +100,14 @@ public class App {
                 }
                 if (cache == 8) {
                     System.out.println("Selecione o valor da etiqueta de compra:");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setValorEtiquetaCompra(scanerint);
+                    scanerdouble = Double.valueOf(scan.next());
+                    Item.setValorEtiquetaCompra(scanerdouble);
                     cache++;
                 }
                 if (cache == 9) {
-                    System.out.println("Selecione o valor da pago na compra:");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setValorPagoCompra(scanerint);
+                    System.out.println("Selecione o valor pago na compra:");
+                    scanerdouble = Double.valueOf(scan.next());
+                    Item.setValorPagoCompra(scanerdouble);
                     cache++;
                 }
                 if (cache == 10) {
