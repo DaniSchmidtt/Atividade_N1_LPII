@@ -29,7 +29,6 @@ public class ConexaoDB {
             fileWriter.write(json);
             fileWriter.close();
             System.out.println("Sucesso ao salvar!");
-            System.out.println(json);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -202,7 +201,7 @@ public class ConexaoDB {
             Itens.remove(aux);
         }
         else{
-            System.out.println("Código de item invalido!");
+            System.out.println("Cï¿½digo de item invalido!");
         }
     }
 }
