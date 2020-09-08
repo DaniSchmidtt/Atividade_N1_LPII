@@ -17,16 +17,16 @@ import dnl.utils.text.table.TextTable;
 
 public class App {
 
-    public static void novoitem(ConexaoDB db, ArrayList<ItemEstoque> itens, int auxcod) 
-    {
+    public static void novoitem(ConexaoDB db, ArrayList<ItemEstoque> itens, int auxcod) {
         ItemEstoque Item = new ItemEstoque();
         int cache = 0;
         while (true) {
             Scanner scan = new Scanner(System.in);
             int scanerint;
+            double scanerdouble;
             try {
                 if (cache == 0) {
-                    Item.setCodigoDoItem(auxcod++);
+                    Item.setCodigoDoItem(auxcod);
                     cache++;
                 }
                 if (cache == 1) {
@@ -71,8 +71,8 @@ public class App {
                 }
                 if (cache == 5) {
                     System.out.println("Digite o preço sugerido");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setPrecoSugerido(scanerint);
+                    scanerdouble = Double.valueOf(scan.next());
+                    Item.setPrecoSugerido(scanerdouble);
                     cache++;
                 }
                 if (cache == 6) {
@@ -106,20 +106,20 @@ public class App {
                 }
                 if (cache == 8) {
                     System.out.println("Selecione o valor da etiqueta de compra:");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setValorEtiquetaCompra(scanerint);
+                    scanerdouble = Double.valueOf(scan.next());
+                    Item.setValorEtiquetaCompra(scanerdouble);
                     cache++;
                 }
                 if (cache == 9) {
-                    System.out.println("Selecione o valor da pago na compra:");
-                    scanerint = Integer.valueOf(scan.next());
-                    Item.setValorPagoCompra(scanerint);
+                    System.out.println("Selecione o valor pago na compra:");
+                    scanerdouble = Double.valueOf(scan.next());
+                    Item.setValorPagoCompra(scanerdouble);
                     cache++;
                 }
-                if(cache == 10){
-                Date date = new Date();
-                Item.setDataDeEntrada(date);
-                break;
+                if (cache == 10) {
+                    Date date = new Date();
+                    Item.setDataDeEntrada(date);
+                    break;
                 }
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -129,27 +129,27 @@ public class App {
         db.insertjson(itens);
     }
 
-    public static void selectparametro(ConexaoDB db,ArrayList<ItemEstoque> itens) {
+    public static void selectparametro(ConexaoDB db, ArrayList<ItemEstoque> itens) {
         while (true) {
             Scanner scan = new Scanner(System.in);
             System.out.println("Passe um codigo de item valido");
             System.out.println("Ou digite 0 para Sair");
+            int Codigo;
             try {
-                int scanerint = Integer.valueOf(scan.next());
-                if (scanerint == 0) {
+                Codigo = Integer.valueOf(scan.next());
+                if (Codigo == 0) {
                     break;
                 } else {
-                    int Codigo = Integer.valueOf(scan.next());
-//                  db.selectjson(Codigo);
+                    // db.selectjson(Codigo);
                     System.out.println("1 - Deseja alterar esse item?");
                     System.out.println("2- Deseja deletar esse item?");
                     System.out.println("para sair digite qualquer outro numero");
-                    scanerint = Integer.valueOf(scan.next());
+                    int scanerint = Integer.valueOf(scan.next());
                     if (scanerint == 1) {
-                        db.deletejson(Codigo, itens);
-                    } else if(scanerint == 2) {
                         db.updatejson(Codigo, itens);
-                    }else{
+                    } else if (scanerint == 2) {
+                        db.deletejson(Codigo, itens);
+                    } else {
                         break;
                     }
                 }
@@ -161,16 +161,16 @@ public class App {
     }
     public static void DesenhaTabela(ArrayList<ItemEstoque> items){
         try{
-        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");  
+        DateFormat df = new SimpleDateFormat("dd-mm-yyyy");
         List<String> headersList = Arrays.asList("Código Do Item", "Data De Entrada", "Local Da Compra", "Tipo", "Marca", "Caracteristicas", "Tamanho", "Cor",
          "Valor Etiqueta", "Valor Pago", "ValorMargem 100", "Preco Sugerido");
          List<List<String>> rowsList = new ArrayList<List<String>>();
          for(int i = 0; i < items.size(); i++){
              var ListString = Arrays.asList(
                  Integer.toString(items.get(i).getCodigoDoItem()),
-                  df.format(items.get(i).getDataDeEntrada()), 
-                  items.get(i).getLocalDaCompra(), 
-                  items.get(i).getTipo(), 
+                  df.format(items.get(i).getDataDeEntrada()),
+                  items.get(i).getLocalDaCompra(),
+                  items.get(i).getTipo(),
                   items.get(i).getMarca(),
                   items.get(i).getCaracteristicas(),
                   items.get(i).getTamanho().toString(),
@@ -182,11 +182,11 @@ public class App {
                  );
             rowsList.add(ListString);
          }
-        
+
         Board board = new Board(200);
-        
+
         String tableString = board.setInitialBlock(new Table(board, 200, headersList, rowsList).tableToBlocks()).build().getPreview();
-        
+
         System.out.println(tableString);
         return;
     } catch (Exception e) {
@@ -198,11 +198,16 @@ public class App {
         ArrayList<ItemEstoque> itens = new ArrayList<ItemEstoque>();
         ConexaoDB db = new ConexaoDB();
         itens = db.selectjson();
-        Integer auxcod = itens.size();
-
+        Integer auxcod = 0;
         System.out.println("Bem vindo ao sistema.");
         System.out.println("---------------------");
         while (true) {
+            for (ItemEstoque itemEstoque : itens) {
+                if(itemEstoque.getCodigoDoItem() > auxcod){
+                    auxcod = itemEstoque.getCodigoDoItem();
+                }
+            }
+            auxcod = auxcod + 1;
             Scanner scan = new Scanner(System.in);
             System.out.println("Opções:");
             System.out.println("1 - Cadastrar novo Item no estoque");
@@ -219,7 +224,7 @@ public class App {
              DesenhaTabela(itens);
              continue;
                     case 3:
-                        selectparametro(db,itens);
+                        selectparametro(db, itens);
                         continue;
                     case 4:
                         System.exit(0);
