@@ -1,6 +1,17 @@
+## Desenvolvedores:
+**Caio dos Reis de Danielli - 081180043**
+
+**Danilo Schmidt Bueno      - 081180007**
+
+**Giovanna Polissici        - 081180009**
+
+**Isabela Villas Boas       - 081180016**
+
 ## Ambiente de desenvolvimento:
 Windows 10
+
 JDK 11 LTS
+
 VS CODE (Java Extension Pack)
 ### Bibliotecas JAVA
 GSON
