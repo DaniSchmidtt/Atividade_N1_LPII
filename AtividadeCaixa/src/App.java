@@ -13,7 +13,6 @@ import Models.EnumTamanho;
 import Models.ItemEstoque;
 import TableWAGU.Board;
 import TableWAGU.Table;
-import dnl.utils.text.table.TextTable;
 
 public class App {
 
